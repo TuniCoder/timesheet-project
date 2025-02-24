@@ -25,8 +25,16 @@ public class User implements Serializable {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;   
 	
-	private String firstName; 
-	
+	private String firstName;
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
 	private String lastName;
 	
 	@Temporal(TemporalType.DATE)
