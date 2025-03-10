@@ -72,6 +72,26 @@ class UserServiceImplMockTest {
         // Verify if deleteById was called
         verify(userRepository).deleteById(anyLong());
     }
+    @Test
+    public void testRetrieveUser() {
+        // Préparation des données de test
+        User user = new User("John", "Doe", new Date(), Role.TECHNICIEN);
+        Long userId = 1L;
+
+        // Simulation du comportement du repository
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+
+        // Appel de la méthode à tester
+        User result = userService.retrieveUser(String.valueOf(userId));
+
+        // Vérifications
+        assertNotNull(result);  // Vérifie que l'utilisateur retourné n'est pas nul
+        assertEquals("John", result.getFirstName());  // Vérifie le prénom
+        assertEquals("Doe", result.getLastName());  // Vérifie le nom
+        assertEquals(Role.TECHNICIEN, result.getRole());  // Vérifie le rôle
+        verify(userRepository, times(1)).findById(userId);  // Vérifie que findById a été appelé une fois
+    }
+
 
 
 }
